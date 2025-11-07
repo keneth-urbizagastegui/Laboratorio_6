@@ -1,0 +1,10 @@
+# Entornos y cachés
+__pycache__/
+.venv/
+.env
+*.log
+.DS_Store
+
+# Salidas locales que NO deben subirse
+Descargas_Videos/
+Descargas_Audio/
