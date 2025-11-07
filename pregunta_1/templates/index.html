@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Buscador de Pokémon</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            margin: 40px;
+            background-color: #f4f4f4;
+        }
+        .container {
+            max-width: 600px;
+            margin: auto;
+            background: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        input[type="text"] {
+            width: 70%;
+            padding: 8px;
+        }
+        button {
+            padding: 9px 15px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+        .pokemon-card {
+            margin-top: 20px;
+            border-top: 1px solid #eee;
+            padding-top: 20px;
+        }
+        .sprites img {
+            width: 96px;
+            height: 96px;
+            image-rendering: pixelated; /* Para que se vean los píxeles */
+        }
+        .error {
+            color: #d9534f;
+            font-weight: bold;
+            margin-top: 10px;
+        }
+    </style>
+    
+</head>
+<body>
+
+    <div class="container">
+        <h1>Buscador de Pokémon</h1>
+
+        <form method="POST" action="">
+            <input type="text" name="pokemon_name" placeholder="Ej: pikachu o 143" required>
+            <button type="submit">Buscar Pokémon</button>
+        </form>
+
+        {% if error %}
+            <p class="error">{{ error }}</p>
+        {% endif %}
+
+        {% if data %}
+            <div class="pokemon-card">
+                
+                <h2>{{ data.name }}</h2>
+
+                <h3>Tipos</h3>
+                <ul>
+                    {% for type in data.types %}
+                        <li>{{ type }}</li>
+                    {% endfor %}
+                </ul>
+
+                <h3>Movimientos (Primeros 4)</h3>
+                <ul>
+                    {% for move in data.moves %}
+                        <li>{{ move }}</li>
+                    {% endfor %}
+                </ul>
+
+                <h3>Imágenes</h3>
+                <div class="sprites">
+                    <img src="{{ data.sprites.front_default }}" alt="{{ data.name }} (frente)">
+                    <img src="{{ data.sprites.back_default }}" alt="{{ data.name }} (espalda)">
+                    <img src="{{ data.sprites.front_shiny }}" alt="{{ data.name }} (frente shiny)">
+                    <img src="{{ data.sprites.back_shiny }}" alt="{{ data.name }} (espalda shiny)">
+                </div>
+
+            </div>
+        {% endif %}
+
+    </div>
+
+</body>
+</html>
